@@ -2,10 +2,12 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 const ImgixAPI = require("imgix-management-js");
-const imgix_api_key = process.env.REACT_APP_IMGIX_API_KEY;
 
 
 const testThis = () => {
+  const imgix_api_key = '';
+  console.log(`the id is: ` + process.env.REACT_APP_IMGIX_API_KEY);
+
   const imgix = new ImgixAPI({
     apiKey: `${imgix_api_key}`
   });
