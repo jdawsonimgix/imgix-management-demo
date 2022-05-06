@@ -5,7 +5,8 @@ const ImgixAPI = require("imgix-management-js");
 
 
 
-export const getServerSideProps = () => {
+export async function getServerSideProps() {
+  //NOTE: You must add an API key here for it to work
    const imgix_api_key = '';
   
   const imgix = new ImgixAPI({
@@ -13,12 +14,10 @@ export const getServerSideProps = () => {
   });
 
   imgix.request(`assets/622f76522d67dbae5fb46268`)
-  .then(response => console.log(JSON.stringify(response, null, 2)))
-  
+  .then(response => console.log(JSON.stringify(response, null, 2)));
 
   return { props: {message: "helloWorld"}};
 }
-
 
 
 export default function Home({message}) {
@@ -33,7 +32,8 @@ export default function Home({message}) {
       </Head>
 
       <main className={styles.main}>
-
+        {/* testing passing in variables */}
+        <h1>{message}</h1>
         <h1 className={styles.title}>
           Welcome to <a href="https://nextjs.org">Next.js!</a>
         </h1>
