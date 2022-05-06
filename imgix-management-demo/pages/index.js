@@ -4,24 +4,31 @@ import styles from '../styles/Home.module.css'
 const ImgixAPI = require("imgix-management-js");
 
 
-
 export async function getServerSideProps() {
-  //NOTE: You must add an API key here for it to work
-   const imgix_api_key = '';
-  
+  const imgix_api_key = '';
+
   const imgix = new ImgixAPI({
-    apiKey: `${imgix_api_key}`
+      apiKey: `${imgix_api_key}`
   });
 
-  imgix.request(`assets/622f76522d67dbae5fb46268`)
-  .then(response => console.log(JSON.stringify(response, null, 2)));
+  let imgixResponse = await imgix.request(`assets/622f76522d67dbae5fb46268`)
+      .then(response => {
+          console.log(response)
+          return response
+      });
 
-  return { props: {message: "helloWorld"}};
+  return {
+      props: {
+          message: "helloWorld",
+          imgixResponse: imgixResponse
+      }
+  };
 }
 
 
-export default function Home({message}) {
+export default function Home({message, imgixResponse}) {
   console.log(message)
+  console.log(imgixResponse.data[0])
   return (
     <div className={styles.container}>
       
@@ -33,7 +40,7 @@ export default function Home({message}) {
 
       <main className={styles.main}>
         {/* testing passing in variables */}
-        <h1>{message}</h1>
+        <h1>{imgixResponse.id}</h1>
         <h1 className={styles.title}>
           Welcome to <a href="https://nextjs.org">Next.js!</a>
         </h1>
