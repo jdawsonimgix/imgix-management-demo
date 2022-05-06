@@ -4,24 +4,25 @@ import styles from '../styles/Home.module.css'
 const ImgixAPI = require("imgix-management-js");
 
 
-const testThis = () => {
-  const imgix_api_key = '';
-  console.log(`the id is: ` + process.env.REACT_APP_IMGIX_API_KEY);
 
+export const getServerSideProps = () => {
+   const imgix_api_key = '';
+  
   const imgix = new ImgixAPI({
     apiKey: `${imgix_api_key}`
   });
 
-
   imgix.request(`assets/622f76522d67dbae5fb46268`)
-  .then(response => console.log(JSON.stringify(response, null, 2)));
+  .then(response => console.log(JSON.stringify(response, null, 2)))
+  
+
+  return { props: {message: "helloWorld"}};
 }
 
 
-testThis();
 
-export default function Home() {
-
+export default function Home({message}) {
+  console.log(message)
   return (
     <div className={styles.container}>
       
@@ -36,10 +37,8 @@ export default function Home() {
         <h1 className={styles.title}>
           Welcome to <a href="https://nextjs.org">Next.js!</a>
         </h1>
+        
 
-      
-
-     
       </main>
 
       <footer className={styles.footer}>
@@ -59,28 +58,3 @@ export default function Home() {
 }
 
 
-
-
-
-
-// export const getStaticProps = async () => {
-//   const ImgixAPI = require("imgix-management-js");
-//   const imgix_api_key = process.env.REACT_APP_IMGIX_API_KEY;
-//   console.log("Hey")
-
-//   const imgix = new ImgixAPI({
-//     apiKey: `${imgix_api_key}`
-//   });
-
-//   console.log("hey 2")
-
-//   imgix.request(`assets/622f76522d67dbae5fb46268`)
-//   .then(response => console.log(JSON.stringify(response, null, 2)));
-
-//   console.log("hey 3")
-//   return {
-//     props: { res: "Hello" }
-//   }
-// }
-
-// getStaticProps();
